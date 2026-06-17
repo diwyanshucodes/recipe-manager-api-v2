@@ -17,21 +17,26 @@ describe("Recipe routes", () => {
 
     token = loginResponse.body.token;
 
-        // create recipe — save id for later tests
-        const recipeResponse = await request(app)
-            .post('/api/recipes')
-            .set('Authorization', `Bearer ${token}`)
-            .send({
-                title: 'Pasta Carbonara',
-                description: 'Classic Italian pasta',
-                prep_time: 30,
-                category: 'dinner',
-                ingredients: [
-                    { name: 'pasta', amount: '200', unit: 'grams' },
-                    { name: 'eggs', amount: '3', unit: 'whole' }
-                ]
-            });
-        recipeId = recipeResponse.body.recipe.id;
+    // create recipe — save id for later tests
+    const recipeResponse = await request(app)
+      .post("/api/recipes")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        title: "Pasta Carbonara",
+        description: "Classic Italian pasta",
+        prep_time: 30,
+        category: "dinner",
+        ingredients: [
+          { name: "pasta", amount: "200", unit: "grams" },
+          { name: "eggs", amount: "3", unit: "whole" },
+        ],
+      });
+    if (recipeResponse.status !== 201) {
+      throw new Error(
+        `Setup failed: ${recipeResponse.status} ${JSON.stringify(recipeResponse.body)}`,
+      );
+    }
+    recipeId = recipeResponse.body.recipe.id;
   });
 
   // tests go here — use token in Authorization header
@@ -128,6 +133,6 @@ describe("Recipe routes", () => {
       .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-   expect(response.body.message).toBe(`Recipe ${recipeId} deleted`);
+    expect(response.body.message).toBe(`Recipe ${recipeId} deleted`);
   });
 });
