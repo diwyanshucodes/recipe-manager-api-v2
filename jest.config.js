@@ -21,6 +21,6 @@ module.exports = {
 
   testTimeout: 10000,
   transform: {
-    '^.+\\.ts$': ['ts-jest', { tsconfig: 'tsconfig.json' }]
+    '^.+\\.ts$': ['ts-jest', { tsconfig: 'tsconfig.test.json' }]
   }
 };

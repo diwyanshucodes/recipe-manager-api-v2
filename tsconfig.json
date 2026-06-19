@@ -9,7 +9,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "moduleDetection": "force",
-    "types": ["node", "jest"]
+    "types": ["node"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"],
